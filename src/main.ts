@@ -1,3 +1,5 @@
+import { config } from 'dotenv';
+config({ path: `.env` });
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './modules/app/app.module';
 import {
@@ -7,6 +9,7 @@ import {
 import * as winston from 'winston';
 import { Logger } from '@nestjs/common';
 import { DocumentBuilder, OpenAPIObject, SwaggerModule } from '@nestjs/swagger';
+import { appConfig } from './config/app.config';
 
 async function bootstrap() {
   // app init
@@ -26,7 +29,7 @@ async function bootstrap() {
     }),
   });
   // define server port
-  const PORT = +process.env.PORT || 5000;
+  const PORT = appConfig.port;
 
   // OpenApi init
   const swaggerConfig = new DocumentBuilder()
